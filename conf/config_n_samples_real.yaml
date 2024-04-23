@@ -1,0 +1,21 @@
+#n_samples_real_last
+
+num_runs : 100
+num_data_list : [500,1000,2000,4000,8000]
+
+dataset_name : "pen" #"pen"
+
+max_reward_noise : 0.2
+
+random_state : 12345
+
+n_rounds_test_bandit_data : 50000 #100000
+
+beta : -0.3 #pi_b softmax
+eps : 0.1
+reward_std : 3.0
+n_users : 200
+n_optimize : 30
+bias_noise_std_s : 1.0
+bias_noise_std_m : 3.0
+bias_noise_std_l : 5.0

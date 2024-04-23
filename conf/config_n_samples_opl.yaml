@@ -1,0 +1,25 @@
+#main_n_samples_opl
+
+num_runs : 100
+epoch : 30
+num_data_list : [500,1000,2000,4000,8000]
+#kth_order_candidate_list : [0,1,2,3,4,5,6,7,8]
+
+n_unique_action : 8
+dim_context : 5
+#base_reward_function : linear_reward_function
+#behavior_policy_function : linear_behavior_policy
+reward_type : "continuous"
+random_state : 12345
+#interaction_factor : 1.0
+
+n_rounds_test_bandit_data : 10000 #100000
+reward_std : 3.0
+beta : -0.5
+lambda_ : 0.8
+
+true_element : [0,1,2]
+q_hat_scale : 0.5
+eps : 0.2
+n_users : 200
+n_optimize : 30
