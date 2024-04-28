@@ -40,7 +40,7 @@ from estimators import (
 from dataset_KuaiRec import ExtremeBanditDataset
 from ope import OffPolicyEvaluation
 
-@hydra.main(config_path="../conf",config_name="config_n_samples_KuaiRec_last")
+@hydra.main(config_path="../conf",config_name="config_n_samples_KuaiRec")
 def main(cfg: DictConfig) -> None:
 
     num_runs = cfg.num_runs 
