@@ -1,7 +1,4 @@
-# Copyright (c) Yuta Saito, Yusuke Narita, and ZOZO Technologies, Inc. All rights reserved.
-# Licensed under the Apache 2.0 License.
 
-"""Class for Generating Synthetic Logged Bandit Data for Slate/Ranking Policies."""
 import obp
 from dataclasses import dataclass
 from itertools import permutations
@@ -27,7 +24,7 @@ from obp.utils import softmax
 from obp.dataset.base import BaseBanditDataset
 
 
-def generate_combinations(current_combination, n): #000もあり
+def generate_combinations(current_combination, n): 
     if len(current_combination) == n:
         return [current_combination]
 
@@ -86,8 +83,6 @@ class SyntheticCombinatorialBanditDataset(BaseBanditDataset):
             )
         
    
-        # set exam_weight (slot-level examination probability).
-        # When click_model is 'pbm', exam_weight is :math:`(1 / k)^{\\eta}`, where :math:`k` is the position.
         
         if self.base_reward_function is not None:
             self.reward_function = action_interaction_reward_function
@@ -141,16 +136,7 @@ class SyntheticCombinatorialBanditDataset(BaseBanditDataset):
             
             # calculate pscore_OPCB
             all_pscore = softmax(self.beta *behavior_policy_logit_)
-            """
-            pscore_comb = np.zeros(len(context[:,0])*self.n_unique_action).reshape(len(context[:,0]),self.n_unique_action)
-            for i in range(self.n_unique_action):
-                for j in range(self.n_comb_action):
-                    if self.action_context[j,i]==1:
-                        pscore_comb[:,i]+=all_pscore[:,j]
             
-            id = list(np.where(self.action_context[:,self.kth_element].sum(axis=1)==len(self.kth_element)))
-            pscore_OPCB = all_pscore[:,id].sum(axis=1).sum(axis=1)
-            """
         return action, pscore, all_pscore
 
 

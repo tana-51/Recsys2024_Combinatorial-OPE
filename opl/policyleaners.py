@@ -296,27 +296,7 @@ class OPCB:
 
         q_hat_factual = q_hat[idx, a]
         
-#         #iw for OPCB
-#         n = a.shape[0]
-        
-#         kth_action_context = self.action_context[:,self.kth_element]
-        
-#         id_list = []
-#         for i in a:
-#             id_ = np.where(np.all(kth_action_context==kth_action_context[i,:],axis=1))
-#             id_list.append(id_[0].tolist())
-        
-#         pscore_OPCB = np.zeros(n)
-#         action_dist_OPCB = np.zeros(n)
 
-#         pos_ = 0
-#         for i in id_list:
-#             pscore_OPCB[pos_]=pi_0[pos_,i].sum()
-#             action_dist_OPCB[pos_] = current_pi[pos_,i].sum()
-#             pos_ += 1
-        
-#         iw_opcb = action_dist_OPCB / pscore_OPCB
-#         iw_opcb = torch.from_numpy(iw_opcb).float()
 
         #iw for OPCB
         n = a.shape[0]
