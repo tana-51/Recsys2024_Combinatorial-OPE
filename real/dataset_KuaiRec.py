@@ -116,7 +116,6 @@ class ExtremeBanditDataset():
         contexts = self.sc.fit_transform(self.pca.fit_transform(contexts))
         idx = self.random_.choice(self.n_train, size=self.n_train, replace=False)
         expected_rewards = self.train_data[idx]
-        #expected_rewards = sigmoid(expected_rewards)
         
         # generate combination rewards and sample action
         rewards = np.zeros(self.n_train)

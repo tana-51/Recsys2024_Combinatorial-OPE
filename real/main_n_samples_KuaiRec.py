@@ -36,16 +36,14 @@ from obp.ope import (
 
 from estimators import (
     OPCB,
-    WOPCB,
-    SelfNormalizedOPCB,
 ) 
 from dataset_KuaiRec import ExtremeBanditDataset
 from ope import OffPolicyEvaluation
 
 @hydra.main(config_path="../conf",config_name="config_n_samples_KuaiRec_last")
 def main(cfg: DictConfig) -> None:
-    ## 実験設定
-    num_runs = cfg.num_runs #できるだけ大きい方が良い
+
+    num_runs = cfg.num_runs 
     num_data_list = cfg.num_data_list
     n_optimize = cfg.n_optimize
     np.random.seed(cfg.random_state)
@@ -69,22 +67,14 @@ def main(cfg: DictConfig) -> None:
     ## make decisions on vlidation data
     id_ = np.random.choice(cfg.n_users, size=10000)
 
-    # action_dist_beta = 3.0
     fixed_q_x_m = dataset.obtain_expected_reward_matrix()[0:cfg.n_users,:]
-    # action_dist_logit = fixed_q_x_m #+ np.random.normal(loc=0,scale=1.0,size=(fixed_q_x_m.shape[0], 2**dataset.n_unique_action))
-    # pi_val = softmax(action_dist_beta*action_dist_logit)[:,:,np.newaxis]
-
-    # action_dist_beta = 2.0
-    # fixed_q_x_m = dataset.obtain_expected_reward_matrix()[0:cfg.n_users,:]
-    # action_dist_logit = np.random.normal(loc=0,scale=2.0,size=(fixed_q_x_m.shape[0], 2**dataset.n_unique_action))
-    # pi_val = softmax(action_dist_beta*action_dist_logit)[:,:,np.newaxis]
 
     pi_val = gen_eps_greedy(
             expected_reward=dataset.obtain_expected_reward_matrix(),
             eps=cfg.eps,
         )
     
-    ## 評価対象の意思決定方策の真の性能(value)をテストデータ上で計算
+    ## calculate V(\pi)
     policy_value = dataset.calc_ground_truth_policy_value(
         expected_reward=fixed_q_x_m[id_,:],
         action_dist=pi_val[id_,:,:],

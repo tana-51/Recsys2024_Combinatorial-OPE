@@ -24,7 +24,7 @@ from obp.dataset import linear_reward_function
 def sigmoid(x: np.ndarray) -> np.ndarray:
     return 1.0 / (1.0 + np.exp(-x))
 
-def generate_combinations(current_combination, n): #000もあり
+def generate_combinations(current_combination, n): 
     if len(current_combination) == n:
         return [current_combination]
 
@@ -272,17 +272,12 @@ class ExtremeBanditDataset(BaseRealBanditDataset):
 
         fixed_q_x_m[:,1:] = fixed_q_x_m[:,1:] / n_use_action[1:]
         fixed_q_x_m[:,0] = 0
-            
-        
-        #fixed_q_x_m = sigmoid(fixed_q_x_m)
         
         q_x_m = fixed_q_x_m[user_idx]
         
         
         pi_b = self.compute_pi_b(contexts,beta=beta)
-        #pi_b = softmax(beta * q_x_m)
         
-        #actions = sample_action_fast(pi_b, random_state=self.random_state)
         
         #sample actions
         actions = np.zeros(n_rounds , dtype=int)

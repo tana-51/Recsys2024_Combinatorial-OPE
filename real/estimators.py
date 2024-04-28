@@ -330,7 +330,6 @@ class OPCB(BaseOffPolicyEstimator):
 
         sample_variance /= n
 
-        # estimate the (high probability) upper bound of the bias of DR with clipping
         iw = action_dist[np.arange(n), action, position] / pscore
         if use_bias_upper_bound:
             bias_term = estimate_high_probability_upper_bound_bias(
@@ -451,7 +450,6 @@ class WOPCB(BaseOffPolicyEstimator):
             weights=action_dist_,
             axis=1,
         )
-        #estimated_rewards += iw * (reward - q_hat_factual)
 
         return estimated_rewards
 
@@ -533,7 +531,7 @@ class WOPCB(BaseOffPolicyEstimator):
                                 action_dist=action_dist,
                                 pscore=pscore,
                             )
-            # Optunaのログを非表示にする
+
             optuna.logging.set_verbosity(optuna.logging.WARNING)
             study = optuna.create_study()
             study.optimize(lambda trial: objective(trial,ips,estimate_reward_list,opcb_variance_list), n_trials=50)
@@ -616,9 +614,7 @@ class WOPCB(BaseOffPolicyEstimator):
         
         n = reward.shape[0]
         
-        #calculate OPCB_action_dist
-        
-        # estimate the sample variance of DR with clipping
+
         sample_variance = np.var(
             self._estimate_round_rewards(
                 reward=reward,
@@ -631,7 +627,6 @@ class WOPCB(BaseOffPolicyEstimator):
         )
         sample_variance /= n
 
-        # estimate the (high probability) upper bound of the bias of DR with clipping
         iw = action_dist[np.arange(n), action, position] / pscore
         if use_bias_upper_bound:
             bias_term = estimate_high_probability_upper_bound_bias(
@@ -718,7 +713,6 @@ class SelfNormalizedOPCB(OPCB):
             weights=action_dist_,
             axis=1,
         )
-        #estimated_rewards += iw * (reward - q_hat_factual)
 
         return estimated_rewards
 

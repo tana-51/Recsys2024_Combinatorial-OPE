@@ -20,7 +20,7 @@ import torch.nn.functional as F
 from torch.optim.lr_scheduler import ExponentialLR
 
 
-def generate_combinations(current_combination, n): #000もあり
+def generate_combinations(current_combination, n): 
     if len(current_combination) == n:
         return [current_combination]
 
@@ -188,7 +188,7 @@ def train_reward_model_via_two_stage(
     cluster_context = np.array(generate_combinations([], len(kth_element)))
     n_cluster = cluster_context.shape[0]
     
-    #cluster_mat (n_comb_action, 2**len(kth_element) ) あるmがどのclusterに属しているか
+    #cluster_mat (n_comb_action, 2**len(kth_element) ) 
     cluster_contents_mat = np.zeros(n_comb_action*(2**len(kth_element))).reshape(n_comb_action,-1)
 
     for i in range(n_comb_action):
