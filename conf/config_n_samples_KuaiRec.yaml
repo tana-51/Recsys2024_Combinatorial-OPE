@@ -11,6 +11,7 @@ random_state : 12345
 eps : 0.1
 beta : -0.5 #pi_b softmax 
 n_users : 300
+reward_std : 3.0
 bias_noise_std_s : 1.0
 bias_noise_std_m : 3.0
 bias_noise_std_l : 5.0
