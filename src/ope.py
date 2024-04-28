@@ -1,7 +1,4 @@
-# Copyright (c) Yuta Saito, Yusuke Narita, and ZOZO Technologies, Inc. All rights reserved.
-# Licensed under the Apache 2.0 License.
 
-"""Off-Policy Evaluation Class to Streamline OPE."""
 from dataclasses import dataclass
 from logging import getLogger
 from pathlib import Path

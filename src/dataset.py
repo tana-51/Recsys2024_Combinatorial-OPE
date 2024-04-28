@@ -1,7 +1,4 @@
-# Copyright (c) Yuta Saito, Yusuke Narita, and ZOZO Technologies, Inc. All rights reserved.
-# Licensed under the Apache 2.0 License.
 
-"""Class for Generating Synthetic Logged Bandit Data for Slate/Ranking Policies."""
 import obp
 from dataclasses import dataclass
 from itertools import permutations
@@ -27,7 +24,7 @@ from obp.utils import softmax
 from obp.dataset.base import BaseBanditDataset
 
 
-def generate_combinations(current_combination, n): #000もあり
+def generate_combinations(current_combination, n): 
     if len(current_combination) == n:
         return [current_combination]
 
@@ -140,16 +137,7 @@ class SyntheticCombinatorialBanditDataset(BaseBanditDataset):
             
             # calculate pscore_OPCB
             all_pscore = softmax(self.beta *behavior_policy_logit_)
-            """
-            pscore_comb = np.zeros(len(context[:,0])*self.n_unique_action).reshape(len(context[:,0]),self.n_unique_action)
-            for i in range(self.n_unique_action):
-                for j in range(self.n_comb_action):
-                    if self.action_context[j,i]==1:
-                        pscore_comb[:,i]+=all_pscore[:,j]
             
-            id = list(np.where(self.action_context[:,self.kth_element].sum(axis=1)==len(self.kth_element)))
-            pscore_OPCB = all_pscore[:,id].sum(axis=1).sum(axis=1)
-            """
         return action, pscore, all_pscore
 
 
@@ -172,8 +160,7 @@ class SyntheticCombinatorialBanditDataset(BaseBanditDataset):
             reward = np.zeros(expected_reward_factual.shape)
             
             mean = expected_reward_factual
-            #a = (self.reward_min - mean) / self.reward_std
-            #b = (self.reward_max - mean) / self.reward_std
+    
             reward[0,:] = self.random_.normal(
                 loc=mean,
                 scale=self.reward_std,
@@ -182,7 +169,7 @@ class SyntheticCombinatorialBanditDataset(BaseBanditDataset):
             reward = np.array(reward[0,:])
         else:
             raise NotImplementedError
-        # return: array-like, shape (n_rounds, len_list)
+
         return reward
 
     def obtain_batch_bandit_feedback(

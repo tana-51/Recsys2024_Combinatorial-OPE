@@ -193,7 +193,6 @@ class OPCB(BaseOffPolicyEstimator):
             weights=action_dist_,
             axis=1,
         )
-        #estimated_rewards += iw * (reward - q_hat_factual)
 
         return estimated_rewards
 
@@ -309,19 +308,19 @@ class OPCB(BaseOffPolicyEstimator):
         self,
         reward: np.ndarray,
         action: np.ndarray,
+        action_context: np.ndarray,
         pscore: np.ndarray,
         action_dist: np.ndarray,
+        all_pscore: np.ndarray,
         estimated_rewards_by_reg_model: np.ndarray,
         position: Optional[np.ndarray] = None,
         use_bias_upper_bound: bool = True,
         delta: float = 0.05,
     ) -> float:
+
        
         n = reward.shape[0]
         
-        #calculate OPCB_action_dist
-        
-        # estimate the sample variance of DR with clipping
         sample_variance = np.var(
             self._estimate_round_rewards(
                 reward=reward,
@@ -337,7 +336,7 @@ class OPCB(BaseOffPolicyEstimator):
 
         sample_variance /= n
 
-        # estimate the (high probability) upper bound of the bias of DR with clipping
+
         iw = action_dist[np.arange(n), action, position] / pscore
         if use_bias_upper_bound:
             bias_term = estimate_high_probability_upper_bound_bias(
@@ -457,7 +456,6 @@ class WOPCB(BaseOffPolicyEstimator):
             weights=action_dist_,
             axis=1,
         )
-        #estimated_rewards += iw * (reward - q_hat_factual)
 
         return estimated_rewards
 
@@ -539,7 +537,7 @@ class WOPCB(BaseOffPolicyEstimator):
                                 action_dist=action_dist,
                                 pscore=pscore,
                             )
-            # Optunaのログを非表示にする
+           
             optuna.logging.set_verbosity(optuna.logging.WARNING)
             study = optuna.create_study()
             study.optimize(lambda trial: objective(trial,ips,estimate_reward_list,opcb_variance_list), n_trials=50)
@@ -622,9 +620,7 @@ class WOPCB(BaseOffPolicyEstimator):
         
         n = reward.shape[0]
         
-        #calculate OPCB_action_dist
         
-        # estimate the sample variance of DR with clipping
         sample_variance = np.var(
             self._estimate_round_rewards(
                 reward=reward,
@@ -637,7 +633,7 @@ class WOPCB(BaseOffPolicyEstimator):
         )
         sample_variance /= n
 
-        # estimate the (high probability) upper bound of the bias of DR with clipping
+
         iw = action_dist[np.arange(n), action, position] / pscore
         if use_bias_upper_bound:
             bias_term = estimate_high_probability_upper_bound_bias(
@@ -655,6 +651,7 @@ class WOPCB(BaseOffPolicyEstimator):
                 q_hat=estimated_rewards_by_reg_model[np.arange(n), action, position],
             )
         estimated_mse_score = sample_variance + (bias_term**2)
+        return estimated_mse_score
 
 
 #------------------------------------------------------------------------------------------------------------------------#
@@ -724,6 +721,5 @@ class SelfNormalizedOPCB(OPCB):
             weights=action_dist_,
             axis=1,
         )
-        #estimated_rewards += iw * (reward - q_hat_factual)
 
         return estimated_rewards

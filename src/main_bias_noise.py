@@ -31,14 +31,13 @@ from obp.ope import (
 
 from dataset import SyntheticCombinatorialBanditDataset
 from estimators import OPCB 
-from estimators import WOPCB 
 from ope import OffPolicyEvaluation
 
 
 @hydra.main(config_path="../conf",config_name="config_bias_noise")
 def main(cfg: DictConfig) -> None:
-    ## 実験設定
-    num_runs = cfg.num_runs #できるだけ大きい方が良い
+
+    num_runs = cfg.num_runs 
     num_data = cfg.num_data 
     n_unique_action = cfg.n_unique_action
     bias_noise_std_list = cfg.bias_noise_std_list
@@ -47,7 +46,6 @@ def main(cfg: DictConfig) -> None:
 
     result_df_list = []
 
-    ## 人工データ生成クラス
     dataset = SyntheticCombinatorialBanditDataset(
         n_unique_action=n_unique_action,
         dim_context=cfg.dim_context,
@@ -73,11 +71,11 @@ def main(cfg: DictConfig) -> None:
         
     p = x/np.sum(x)
 
-    ### 評価対象の意思決定方策の真の性能(value)を近似するためのデータ
+
     test_bandit_data = dataset.obtain_batch_bandit_feedback(n_rounds=cfg.n_rounds_test_bandit_data, n_users=cfg.n_users,true_element=cfg.true_element)
 
 
-    ## 評価対象の意思決定方策の真の性能(value)をテストデータ上で計算
+    ## calculate V(\pi)
     policy_value = dataset.calc_ground_truth_policy_value(
         expected_reward=test_bandit_data["expected_reward_matrix"], 
         action_dist=gen_eps_greedy(
