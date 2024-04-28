@@ -1,7 +1,4 @@
-# Copyright (c) Yuta Saito, Yusuke Narita, and ZOZO Technologies, Inc. All rights reserved.
-# Licensed under the Apache 2.0 License.
 
-"""Class for Generating Synthetic Logged Bandit Data for Slate/Ranking Policies."""
 import obp
 from dataclasses import dataclass
 from itertools import permutations
@@ -27,7 +24,7 @@ from obp.utils import softmax
 from obp.dataset.base import BaseBanditDataset
 
 
-def generate_combinations(current_combination, n): #000もあり
+def generate_combinations(current_combination, n): 
     if len(current_combination) == n:
         return [current_combination]
 

@@ -45,8 +45,7 @@ from ope import OffPolicyEvaluation
 @hydra.main(config_path="../conf",config_name="config_slate_size")
 def main(cfg: DictConfig) -> None:
 
-    ## 実験設定
-    num_runs = cfg.num_runs #できるだけ大きい方が良い
+    num_runs = cfg.num_runs 
     num_data = cfg.num_data
     slate_size_list = cfg.slate_size_list 
 
@@ -73,7 +72,6 @@ def main(cfg: DictConfig) -> None:
         n_slate = n_unique_action**slate_size
 
 
-        ### 評価対象の意思決定方策の真の性能(value)を近似するためのデータ
         test_rounds = cfg.n_rounds_test_bandit_data 
         test_bandit_data = dataset.obtain_batch_bandit_feedback(n_rounds=test_rounds, n_users=cfg.n_users,)
 
@@ -89,7 +87,7 @@ def main(cfg: DictConfig) -> None:
                 pi_x_s[i,s] = np.prod(pi_x_a[i,test_bandit_data["action_context"][s],np.arange(slate_size)])
 
 
-        ## 評価対象の意思決定方策の真の性能(value)をテストデータ上で計算
+        ## calculate V(\pi)
         policy_value = dataset.calc_ground_truth_policy_value(
             expected_reward=test_bandit_data["expected_reward_matrix"], 
             action_dist=pi_x_s[:,:,np.newaxis],

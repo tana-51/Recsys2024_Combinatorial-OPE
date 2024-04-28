@@ -193,7 +193,6 @@ class OPCB(BaseOffPolicyEstimator):
             weights=action_dist_,
             axis=1,
         )
-        #estimated_rewards += iw * (reward - q_hat_factual)
 
         return estimated_rewards
 
@@ -319,9 +318,7 @@ class OPCB(BaseOffPolicyEstimator):
        
         n = reward.shape[0]
         
-        #calculate OPCB_action_dist
-        
-        # estimate the sample variance of DR with clipping
+
         sample_variance = np.var(
             self._estimate_round_rewards(
                 reward=reward,
@@ -337,7 +334,6 @@ class OPCB(BaseOffPolicyEstimator):
 
         sample_variance /= n
 
-        # estimate the (high probability) upper bound of the bias of DR with clipping
         iw = action_dist[np.arange(n), action, position] / pscore
         if use_bias_upper_bound:
             bias_term = estimate_high_probability_upper_bound_bias(
@@ -357,9 +353,6 @@ class OPCB(BaseOffPolicyEstimator):
         estimated_mse_score = sample_variance + (bias_term**2)
 
         return estimated_mse_score
-    
-    
-##-----------------------------------------------------------------------------------------------------------------------------##
 
 
     
