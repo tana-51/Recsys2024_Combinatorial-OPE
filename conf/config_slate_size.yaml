@@ -6,8 +6,7 @@ slate_size_list  : [4,5,6,7]
 n_unique_action : 3
 
 dim_context : 5
-#base_reward_function : linear_reward_function
-#behavior_policy_function : linear_behavior_policy
+
 reward_type : "continuous"
 random_state : 12345
 interaction_factor : 5.0

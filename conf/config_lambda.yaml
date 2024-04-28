@@ -6,8 +6,7 @@ n_unique_action : 8
 lambda_list  : [0, 0.2, 0.4, 0.6, 0.8, 1.0]
 
 dim_context : 5
-#base_reward_function : linear_reward_function
-#behavior_policy_function : linear_behavior_policy
+
 reward_type : "continuous"
 random_state : 12345
 interaction_factor : 1.0

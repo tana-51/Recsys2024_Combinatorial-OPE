@@ -1,4 +1,4 @@
-#main_kth_order_continuous
+#main_kth_order
 
 num_runs : 100
 num_data : 2000
@@ -6,8 +6,7 @@ num_unique_action : 6
 kth_order_list : [0,1,2,3,4,5,6]
 
 dim_context : 5
-#base_reward_function : linear_reward_function
-#behavior_policy_function : linear_behavior_policy
+
 reward_type : "continuous"
 random_state : 12345
 interaction_factor : 1.0

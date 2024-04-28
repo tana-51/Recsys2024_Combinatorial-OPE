@@ -4,14 +4,13 @@ num_runs : 100
 epoch : 30
 num_data : 2000
 num_unique_actions_list  : [6,7,8,9,10]
-#kth_order_candidate_list : [0,1,2,3,4,5,6,7,8]
+
 
 dim_context : 5
-#base_reward_function : linear_reward_function
-#behavior_policy_function : linear_behavior_policy
+
 reward_type : "continuous"
 random_state : 12345
-#interaction_factor : 1.0
+
 
 n_rounds_test_bandit_data : 10000 #100000
 

@@ -5,8 +5,7 @@ num_data : 2000
 n_unique_action  : 8
 
 dim_context : 5
-#base_reward_function : linear_reward_function
-#behavior_policy_function : linear_behavior_policy
+
 reward_type : "continuous"
 random_state : 12345
 interaction_factor : 1.0
