@@ -1,7 +1,7 @@
 #n_samples_KuaiRec
 
 num_runs : 100
-num_data_list : [500,1000,2000,4000]
+num_data_list : [250,500,1000,2000,4000]
 
 
 n_unique_action : 10
@@ -9,7 +9,7 @@ n_train : 1500
 n_optimize : 30
 random_state : 12345
 eps : 0.1
-beta : -0.5 #pi_b softmax 
+beta : -0.3 #pi_b softmax 
 n_users : 300
 reward_std : 3.0
 bias_noise_std_s : 1.0
